@@ -1,0 +1,16 @@
+#!/bin/bash
+LOGIN='your_username'
+PASSWORD='your_pass'
+DDNS_HOST='whatever.dyndns-home.com'
+WAN='eth0'
+
+while :
+do
+  sleep 300
+  ACTUAL_IP=`ip address show $WAN | awk '/inet / {print $2}' | sed 's#/.*##'`
+  RESOLVED_IP=`host "$DDNS_HOST" | awk '/address/ { print $4 }'`
+
+  if [ "$RESOLVED_IP" != "$ACTUAL_IP" ] ; then
+    curl "https://$LOGIN:$PASSWORD@members.dyndns.org/nic/update?hostname=$DDNS_HOST&myip=$ACTUAL_IP&wildcard=NOCHG&mx=NOCHG&backmx=NOCHG"
+  fi
+done
