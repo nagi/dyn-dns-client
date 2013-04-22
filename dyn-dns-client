@@ -6,11 +6,13 @@ WAN='eth0'
 
 while :
 do
-  sleep 300
-  ACTUAL_IP=`ip address show $WAN | awk '/inet / {print $2}' | sed 's#/.*##'`
+  # faster, but not NAT proof
+  # ACTUAL_IP=`ip address show $WAN | awk '/inet / {print $2}' | sed 's#/.*##'`
+  ACTUAL_IP=`curl ifconfig.me`
   RESOLVED_IP=`host "$DDNS_HOST" | awk '/address/ { print $4 }'`
 
   if [ "$RESOLVED_IP" != "$ACTUAL_IP" ] ; then
     curl "https://$LOGIN:$PASSWORD@members.dyndns.org/nic/update?hostname=$DDNS_HOST&myip=$ACTUAL_IP&wildcard=NOCHG&mx=NOCHG&backmx=NOCHG"
   fi
+  sleep 120
 done
