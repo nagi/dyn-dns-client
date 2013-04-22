@@ -10,7 +10,7 @@ curl & bash are required.
 
 Recommended Installation
 ------------------------
-1- Place the script in /usr/local/bin
-1- Edit the variables at the top of the script.
-1- Ensure it is executable & call it from rc.local (/usr/local/bin/dyn-dns-client&)
-1- Don't forget the ampersand in the line  above!
+- [ ] Place the script in /usr/local/bin
+- [ ] Edit the variables at the top of the script.
+- [ ] Ensure it is executable & call it from rc.local (/usr/local/bin/dyn-dns-client&)
+- [ ] Don't forget the ampersand in the line  above!
